@@ -31,7 +31,7 @@ Class  EE_Paypal_Smart_Buttons extends EE_Addon {
 			'Paypal_Smart_Buttons',
 			array(
 				'version' 					=> EE_PAYPAL_SMART_BUTTONS_VERSION,
-				'min_core_version' => '4.9.62.dev.000',
+				'min_core_version' => '4.9.63.dev.000',
 				'main_file_path' 				=> EE_PAYPAL_SMART_BUTTONS_PLUGIN_FILE,
                 'namespace'             => array(
                     'FQNS' => 'EventEspresso\PayPalSmartButtons',
