@@ -3,7 +3,7 @@
 use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonSettingsForm;
 
 /**
- * EEPMT_Paypal_Smart_Buttons
+ * EE_PMT_Paypal_Smart_Buttons
  *
  * @package         Event Espresso
  * @subpackage
