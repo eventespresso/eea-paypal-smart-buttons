@@ -16,12 +16,12 @@ class EED_Paypal_Smart_Buttons extends EED_Module
 {
     public static function set_hooks()
     {
-        add_action('wp_enqueue_scripts', array('EED_Paypal_Smart_Buttons','ee_pp_smart_buttons'), 200);
+        add_action('wp_enqueue_scripts', array('EED_Paypal_Smart_Buttons','enqueuePayPalExpressCheckoutJS'), 200);
         add_filter(
             'FHEE__EE_Radio_Button_Display_Strategy__display',
             array(
                 'EED_Paypal_Smart_Buttons',
-                'ee_pp_add_smart_button_to_pms',
+                'addPayPalExpressCheckoutDiv',
             ),
             10,
             3
@@ -30,7 +30,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
             'FHEE__EE_Radio_Button_Display_Strategy__display__option_label_class',
             array(
                 'EED_Paypal_Smart_Buttons',
-                'ee_pp_hide_normal_payment_button'
+                'hideNormalPaymentButton'
             ),
             10,
             4
@@ -44,7 +44,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
             'FHEE__EE_Radio_Button_Display_Strategy__display',
             array(
                 'EED_Paypal_Smart_Buttons',
-                'ee_pp_add_smart_button_to_pms',
+                'addPayPalExpressCheckoutDiv',
             ),
             10,
             3
@@ -55,7 +55,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
     /**
      * Enqueues the JS and CSS needed for the buttons
      */
-    public static function ee_pp_smart_buttons()
+    public static function enqueuePayPalExpressCheckoutJS()
     {
         // fetch the current transaction
         $current_transaction = self::getCurrentTransaction();
@@ -106,7 +106,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
      * @param $input
      * @return string
      */
-    public static function ee_pp_add_smart_button_to_pms($html, $display_strategy_instance, $input)
+    public static function addPayPalExpressCheckoutDiv($html, $display_strategy_instance, $input)
     {
 
         if($input->parent_section()->name() === 'available_payment_methods') {
@@ -126,7 +126,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
      * @param $input_args
      * @param $input
      */
-    public static function ee_pp_hide_normal_payment_button($html_class, $display_strategy, $input, $value)
+    public static function hideNormalPaymentButton($html_class, $display_strategy, $input, $value)
     {
         if( ! $input instanceof EE_Radio_Button_Input
             || $input->html_name() !== 'selected_method_of_payment'
@@ -190,7 +190,8 @@ class EED_Paypal_Smart_Buttons extends EED_Module
         $paypal_smart_button_pm = null;
         foreach($applicable_payment_methods as $payment_method) {
             if($payment_method->type() === 'Paypal_Smart_Buttons') {
-                $paypal_smart_button_pm = $payment_method;break;
+                $paypal_smart_button_pm = $payment_method;
+                break;
             }
         }
         if (! $paypal_smart_button_pm instanceof EE_Payment_Method) {
