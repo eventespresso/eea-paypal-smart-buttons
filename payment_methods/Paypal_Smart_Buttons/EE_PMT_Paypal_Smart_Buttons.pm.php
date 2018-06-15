@@ -91,8 +91,8 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
     {
         return array(
             $this->get_help_tab_name() => array(
-                        'title' => __('PayPal Pro Settings', 'event_espresso'),
-                        'filename' => 'payment_methods_overview_paypalpro'
+                        'title' => __('PayPal Express Checkout with Smart Buttons Settings', 'event_espresso'),
+                        'filename' => 'payment_methods_overview_paypal_smart_buttons'
                         ),
         );
     }
