@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin Name: Event Espresso - Paypal Smart Buttons (EE 4.x+)
+  Plugin Name: Event Espresso - PayPal Express Checkout With Smart Buttons (EE 4.9.63)
   Plugin URI: http://www.eventespresso.com
   Description: The Event Espresso Paypal Smart Buttons adds 2 new payment methods: new onsite and new offsite
   Version: 0.0.1.dev.006
