@@ -1,0 +1,15 @@
+{
+	"versionFile" : "eea-paypal-smart-buttons.php",
+	"slug" : "eea-paypal-smart-buttons",
+	"name" : "Event Espresso 4 Paypal Smart Buttons",
+	"archiveBaseUrl" : "http://build.eventespresso.com/",
+	"archiveBasePath" : "~/www/build/",
+	"releaseFilesRemove" : [
+		"src/tests/**",
+		"src/info.json",
+		"src/circle.yml"
+	],
+	"github" : false,
+	"awsbucket" : "",
+	"awsregion" : ""
+}
