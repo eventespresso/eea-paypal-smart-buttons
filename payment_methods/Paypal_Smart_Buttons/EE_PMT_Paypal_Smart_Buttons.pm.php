@@ -22,9 +22,9 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
     {
         require_once($this->file_folder().'EEG_Paypal_Smart_Buttons.gateway.php');
         $this->_gateway = new EEG_Paypal_Smart_Buttons();
-        $this->_pretty_name = __("PayPal Smart Buttons", 'event_espresso');
+        $this->_pretty_name = __("PayPal Express Checkout with Smart Buttons", 'event_espresso');
         $this->_default_description = __('If payment with PayPal is unsuccessful, please try an alternative method, or contact us.', 'event_espresso');
-        $this->_requires_https = true;
+        $this->_requires_https = false;
         parent::__construct($pm_instance);
     }
 
