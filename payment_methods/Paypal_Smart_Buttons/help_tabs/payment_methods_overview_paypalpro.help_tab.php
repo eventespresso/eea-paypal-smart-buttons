@@ -11,7 +11,7 @@
     ); ?>
 </p>
 <p><strong><?php _e('PayPal Smart Buttons Settings', 'event_espresso'); ?></strong></p>
-<p><?php esc_html__('This uses different PayPal credentials than PayPal Express, Pro, and Standard. Because this uses PayPal\'s newer REST API, you need what they call "An App". Creating one is easy:','event_espresso' );?></p>
+<p><?php esc_html_e('This uses different PayPal credentials than PayPal Express, Pro, and Standard. Because this uses PayPal\'s newer REST API, you need what they call "An App". Creating one is easy:','event_espresso' );?></p>
 <ol>
     <li><?php
         printf(
@@ -27,7 +27,7 @@
     <li><?php esc_html_e('Scroll down to "REST API apps"','event_espresso' );?></li>
     <li><?php esc_html_e('Just under that, click "Create App"','event_espresso' );?></li>
     <li><?php esc_html_e('Select the "App Name" you\'d like registrants to see. The name of your website is a good choice. Pick any sandbox developer account you like.','event_espresso' );?></li>
-    <li><?php esc_html__('Note that your App\'s "Client ID" and "Secret" are on the following page. These can be accessed later from the "My Apps & Credentials" page.','event_espresso' );?></li>
+    <li><?php esc_html_e('Note that your App\'s "Client ID" and "Secret" are on the following page. These can be accessed later from the "My Apps & Credentials" page.','event_espresso' );?></li>
 </ol>
 <p><?php
     printf(
