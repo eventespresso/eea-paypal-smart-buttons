@@ -35,7 +35,6 @@ class EED_Paypal_Smart_Buttons extends EED_Module
             10,
             4
         );
-
     }
 
     public static function set_hooks_admin()
@@ -90,7 +89,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
                 'transaction_total' => $current_transaction->remaining(),
                 'payment_div_selector' => '#paypal-button-container',
                 'sandbox_mode' => $paypal_smart_button_pm->debug_mode(),
-                'client_id' => $paypal_smart_button_pm->get_extra_meta('client_id',true),
+                'client_id' => $paypal_smart_button_pm->get_extra_meta('client_id', true),
                 'slug' => $paypal_smart_button_pm->slug(),
                 'button_shape' => $paypal_smart_button_pm->get_extra_meta('button_shape', true),
                 'button_layout' => $show_big_buttons ? 'vertical' : 'horizontal'
@@ -109,9 +108,9 @@ class EED_Paypal_Smart_Buttons extends EED_Module
     public static function addPayPalExpressCheckoutDiv($html, $display_strategy_instance, $input)
     {
 
-        if($input->parent_section()->name() === 'available_payment_methods') {
+        if ($input->parent_section()->name() === 'available_payment_methods') {
             $payment_method = self::getCurrentPaypalSmartButtonPM(self::getCurrentTransaction());
-            if($payment_method->get_extra_meta('button_size', true) === 'full_width') {
+            if ($payment_method->get_extra_meta('button_size', true) === 'full_width') {
                 $html_class = 'wide-paypal-smart-buttons';
             } else {
                 $html_class = 'narrow-paypal-smart-buttons';
@@ -128,11 +127,11 @@ class EED_Paypal_Smart_Buttons extends EED_Module
      */
     public static function hideNormalPaymentButton($html_class, $display_strategy, $input, $value)
     {
-        if( ! $input instanceof EE_Radio_Button_Input
+        if (! $input instanceof EE_Radio_Button_Input
             || $input->html_name() !== 'selected_method_of_payment'
             || ! $value
         ) {
-            //this isn't for a radio input with the right name, so forget about it
+            // this isn't for a radio input with the right name, so forget about it
             return $html_class;
         }
         $is_paypal_smart_button_pm = EEM_Payment_Method::instance()->exists(
@@ -179,7 +178,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
      */
     protected static function getCurrentPaypalSmartButtonPM($transaction)
     {
-        if( ! $transaction) {
+        if (! $transaction) {
             return null;
         }
 
@@ -188,8 +187,8 @@ class EED_Paypal_Smart_Buttons extends EED_Module
             EEM_Payment_Method::scope_cart
         );
         $paypal_smart_button_pm = null;
-        foreach($applicable_payment_methods as $payment_method) {
-            if($payment_method->type() === 'Paypal_Smart_Buttons') {
+        foreach ($applicable_payment_methods as $payment_method) {
+            if ($payment_method->type() === 'Paypal_Smart_Buttons') {
                 $paypal_smart_button_pm = $payment_method;
                 break;
             }

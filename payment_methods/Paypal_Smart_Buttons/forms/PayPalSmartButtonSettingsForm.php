@@ -105,7 +105,7 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
     public function _validate()
     {
         parent::_validate();
-        //also, let's check the credentials are valid.
+        // also, let's check the credentials are valid.
         $valid_data = $this->valid_data();
         if (isset($valid_data['debug_mode'], $valid_data['client_id'], $valid_data['secret'])) {
             try {

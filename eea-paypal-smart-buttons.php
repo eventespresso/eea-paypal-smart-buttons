@@ -36,16 +36,17 @@
  *
  * ------------------------------------------------------------------------
  */
-define( 'EE_PAYPAL_SMART_BUTTONS_VERSION', '0.0.1.dev.006' );
-define( 'EE_PAYPAL_SMART_BUTTONS_PLUGIN_FILE',  __FILE__ );
-function load_espresso_paypal_smart_buttons() {
-if ( class_exists( 'EE_Addon' )) {
-	// paypal_smart_buttons version
-	require_once ( plugin_dir_path( __FILE__ ) . 'EE_Paypal_Smart_Buttons.class.php' );
-	EE_Paypal_Smart_Buttons::register_addon();
+define('EE_PAYPAL_SMART_BUTTONS_VERSION', '0.0.1.dev.006');
+define('EE_PAYPAL_SMART_BUTTONS_PLUGIN_FILE', __FILE__);
+function load_espresso_paypal_smart_buttons()
+{
+    if (class_exists('EE_Addon')) {
+        // paypal_smart_buttons version
+        require_once(plugin_dir_path(__FILE__) . 'EE_Paypal_Smart_Buttons.class.php');
+        EE_Paypal_Smart_Buttons::register_addon();
+    }
 }
-}
-add_action( 'AHEE__EE_System__load_espresso_addons', 'load_espresso_paypal_smart_buttons' );
+add_action('AHEE__EE_System__load_espresso_addons', 'load_espresso_paypal_smart_buttons');
 
 // End of file espresso_paypal_smart_buttons.php
 // Location: wp-content/plugins/espresso-paypal-smart-buttons/espresso_paypal_smart_buttons.php

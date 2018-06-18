@@ -150,7 +150,7 @@ class EEG_Paypal_Smart_Buttons extends EE_Onsite_Gateway
             );
         }
         // @todo setup the items
-        try{
+        try {
             $payment_id = isset($billing_info['payment_id']) ? $billing_info['payment_id'] : '';
             $payment->set_txn_id_chq_nmbr($payment_id);
             $response_data = $this->getClient()->executePayment(
@@ -164,7 +164,7 @@ class EEG_Paypal_Smart_Buttons extends EE_Onsite_Gateway
                 ),
                 $payment
             );
-        } catch( EE_Error $e) {
+        } catch (EE_Error $e) {
             $payment->set_status(
                 $payment->set_status($this->_pay_model->failed_status())
             );
@@ -182,11 +182,11 @@ class EEG_Paypal_Smart_Buttons extends EE_Onsite_Gateway
         // key state should be approved
         // key transactions, first item, then amount, then total
         if (isset(
-                $response_data['state'],
-                $response_data['transactions'],
-                $response_data['transactions'][0],
-                $response_data['transactions'][0]['amount'],
-                $response_data['transactions'][0]['amount']['total']
+            $response_data['state'],
+            $response_data['transactions'],
+            $response_data['transactions'][0],
+            $response_data['transactions'][0]['amount'],
+            $response_data['transactions'][0]['amount']['total']
         )) {
             $payment->set_amount($response_data['transactions'][0]['amount']['total']);
             if ($response_data['state'] === 'approved') {

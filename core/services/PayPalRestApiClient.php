@@ -49,7 +49,7 @@ class PayPalRestApiClient
      */
     public function getServerName()
     {
-        if($this->sandbox_server) {
+        if ($this->sandbox_server) {
             return 'https://api.sandbox.paypal.com';
         } else {
             return 'https://api.paypal.com';
@@ -143,7 +143,7 @@ class PayPalRestApiClient
      */
     public function getAccessToken()
     {
-       return $this->access_token;
+        return $this->access_token;
     }
 
 
@@ -166,10 +166,10 @@ class PayPalRestApiClient
             );
         }
         if (isset(
-                $response['response'],
-                $response['response']['code'],
-                $response['response']['message']
-            )
+            $response['response'],
+            $response['response']['code'],
+            $response['response']['message']
+        )
             && $response['response']['code'] === 500) {
             throw new EE_Error(
                 $response['response']['message']
@@ -190,7 +190,7 @@ class PayPalRestApiClient
                 esc_html__('No JSON body was received.', 'event_espresso')
             );
         }
-        if( isset($response_data['error'], $response_data['error_description'])) {
+        if (isset($response_data['error'], $response_data['error_description'])) {
             throw new EE_Error(
                 esc_html(
                     sprintf(
