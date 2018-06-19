@@ -1,21 +1,12 @@
 <?php
 /**
- * Contains test class for espresso_addon_skeleton.php
+ * Contains test class for eea-paypal-smart-buttons.php
  *
- * @since  		0.0.1.dev.002
- * @package 		EE4 Addon Skeleton
- * @subpackage 	tests
+ * @since  		1.0.0
+ * @package 	EE WPUsers
+ * @subpackage 	Tests
  */
-
-
-/**
- * Test class for espresso_addon_skeleton.php
- *
- * @since 		0.0.1.dev.002
- * @package 		EE4 Addon Skeleton
- * @subpackage 	tests
- */
-class espresso_promotions_tests extends EE_UnitTestCase {
+class eea_paypal_smart_buttons_tests extends EE_UnitTestCase {
 
 	/**
 	 * Tests the loading of the main file
