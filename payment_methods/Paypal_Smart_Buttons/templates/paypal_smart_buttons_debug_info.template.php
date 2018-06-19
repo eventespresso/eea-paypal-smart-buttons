@@ -1,7 +1,7 @@
 <?php
 
 /**
- * paypal_pro_billing_form
+ * paypal_smart_buttons_billing_form
  *
  * @package               Event Espresso
  * @subpackage
@@ -139,4 +139,4 @@
         </table>
     </div>
     </div><?php
-// End of file paypal_pro_billing_form.template.php
+// End of file paypal_pro_debug_info.template.php
