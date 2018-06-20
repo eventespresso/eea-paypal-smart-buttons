@@ -113,6 +113,7 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
                     $valid_data['PMD_debug_mode'],
                     $valid_data['client_id'],
                     $valid_data['secret']
+                    !empty($valid_data['access_token']) ? $valid_data['access_token'] : null
                 );
                 $access_token = $api_client->getAccessToken();
                 $this->populate_defaults(
