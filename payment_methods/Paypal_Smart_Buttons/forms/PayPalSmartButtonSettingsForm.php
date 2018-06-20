@@ -107,10 +107,10 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
         parent::_validate();
         // also, let's check the credentials are valid.
         $valid_data = $this->valid_data();
-        if (isset($valid_data['debug_mode'], $valid_data['client_id'], $valid_data['secret'])) {
+        if (isset($valid_data['PMD_debug_mode'], $valid_data['client_id'], $valid_data['secret'])) {
             try {
                 $api_client = new PayPalRestApiClient(
-                    $valid_data['debug_mode'],
+                    $valid_data['PMD_debug_mode'],
                     $valid_data['client_id'],
                     $valid_data['secret']
                 );
