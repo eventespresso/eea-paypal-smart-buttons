@@ -39,11 +39,7 @@ class PayPalRestApiClient
         $this->sandbox_server = $sandbox_server;
         $this->client_id = $client_id;
         $this->secret = $secret;
-        if (! $access_token) {
-            $this->refreshAccessToken();
-        } else {
-            $this->access_token = $access_token;
-        }
+        $this->access_token = !empty($access_token) ? $access_token : $this->refreshAccessToken();
     }
 
 
