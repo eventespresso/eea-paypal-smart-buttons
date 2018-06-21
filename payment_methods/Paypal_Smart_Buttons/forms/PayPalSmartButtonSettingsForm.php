@@ -109,13 +109,19 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
         $valid_data = $this->valid_data();
         if (isset($valid_data['PMD_debug_mode'], $valid_data['client_id'], $valid_data['secret'])) {
             try {
+                $valid_data_access_token = !empty($valid_data['access_token']) ? $valid_data['access_token'] : null;
                 $api_client = new PayPalRestApiClient(
                     $valid_data['PMD_debug_mode'],
                     $valid_data['client_id'],
                     $valid_data['secret'],
-                    !empty($valid_data['access_token']) ? $valid_data['access_token'] : null
+                    $valid_data_access_token
                 );
-                $access_token = $api_client->refreshAccessToken();
+                // Refresh the token manually in case the keys were changed.
+                // If this is an initial setup the token will be auto refreshed/created.
+                if (! empty($valid_data_access_token)) {
+                    $api_client->refreshAccessToken();
+                }
+                $access_token = $api_client->getAccessToken();
                 $this->populate_defaults(
                     array(
                         'access_token' => $access_token
