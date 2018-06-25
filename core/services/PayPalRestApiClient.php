@@ -166,10 +166,10 @@ class PayPalRestApiClient
             );
         }
         if (isset(
-                $response['response'],
-                $response['response']['code'],
-                $response['response']['message']
-            )
+            $response['response'],
+            $response['response']['code'],
+            $response['response']['message']
+        )
             && ($response['response']['code'] === 500 || $response['response']['code'] === 401)
         ) {
             throw new EE_Error(
