@@ -110,6 +110,10 @@ class EED_Paypal_Smart_Buttons extends EED_Module
 
         if ($input->parent_section()->name() === 'available_payment_methods') {
             $payment_method = self::getCurrentPaypalSmartButtonPM(self::getCurrentTransaction());
+            if (! $payment_method instanceof EE_Payment_Method) {
+                // no paypal smart button PM active and/or usable on the front end
+                return $html;
+            }
             if ($payment_method->get_extra_meta('button_size', true) === 'full_width') {
                 $html_class = 'wide-paypal-smart-buttons';
             } else {
