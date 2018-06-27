@@ -69,17 +69,6 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
                             'default'         => 'pill',
                         )
                     ),
-                    'button_size'  => new EE_Select_Input(
-                        array(
-                            'standard'     => esc_html__('Standard', 'event_espresso'),
-                            'full_width'      => esc_html__('Full Page Width', 'event_espresso'),
-                        ),
-                        array(
-                            'html_label_text' => esc_html__('Button Size', 'event_espresso'),
-                            'default'         => 'full_width',
-                            'html_help_text' => esc_html__('Standard button size only has room to show the pay with PayPal or PayPal Credit options. Full Width can show other options, like credit cards and Venmo, when applicable.', 'event_espresso')
-                        )
-                    ),
                     // store the access token like other extra meta inputs
                     // except hide it, because we don't ask users for it directly. We will retrieve it from
                     // PayPal upon form submission

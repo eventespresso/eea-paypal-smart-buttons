@@ -1,5 +1,6 @@
 <?php
 
+use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonBillingForm;
 use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonSettingsForm;
 
 /**
@@ -45,40 +46,13 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
 
     /**
      * Creates the billing form for this payment method type
-     * @param \EE_Transaction $transaction
-     * @throws \EE_Error
-     * @return EE_Billing_Info_Form
+     *
+     * @param EE_Transaction $transaction
+     * @return PayPalSmartButtonBillingForm
      */
     public function generate_new_billing_form(EE_Transaction $transaction = null)
     {
-        return new EE_Billing_Info_Form(
-            $this->_pm_instance,
-            array(
-                'subsections' =>
-                array(
-                    'payment_token' => new EE_Hidden_Input(
-                        array(
-                            'html_id' => 'paypal-payment-token',
-                        )
-                    ),
-                    'payment_id' => new EE_Hidden_Input(
-                        array(
-                            'html_id' => 'paypal-payment-id',
-                        )
-                    ),
-                    'order_id' => new EE_Hidden_Input(
-                        array(
-                            'html_id' => 'paypal-order-id'
-                        )
-                    ),
-                    'payer_id' => new EE_Hidden_Input(
-                        array(
-                            'html_id' => 'paypal-payer-id'
-                        )
-                    ),
-                )
-            )
-        );
+        return new PayPalSmartButtonBillingForm($this->_pm_instance, $transaction);
     }
 
 
