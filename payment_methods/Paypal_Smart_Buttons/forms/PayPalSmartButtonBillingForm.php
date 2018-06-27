@@ -48,32 +48,31 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
         $options_array = array_replace_recursive(
             array(
                 $options_array,
-                'subsections' =>
-                    array(
-                        'payment_div' => new EE_Form_Section_HTML(
-                            '<div id="paypal-button-container" class="wide-paypal-smart-buttons"></div>'
-                        ),
-                        'payment_token' => new EE_Hidden_Input(
-                            array(
-                                'html_id' => 'paypal-payment-token',
-                            )
-                        ),
-                        'payment_id' => new EE_Hidden_Input(
-                            array(
-                                'html_id' => 'paypal-payment-id',
-                            )
-                        ),
-                        'order_id' => new EE_Hidden_Input(
-                            array(
-                                'html_id' => 'paypal-order-id'
-                            )
-                        ),
-                        'payer_id' => new EE_Hidden_Input(
-                            array(
-                                'html_id' => 'paypal-payer-id'
-                            )
-                        ),
-                    )
+                'subsections' => array(
+                    'payment_div' => new EE_Form_Section_HTML(
+                        '<div id="ee-paypal-button-container" class="wide-paypal-smart-buttons"></div>'
+                    ),
+                    'payment_token' => new EE_Hidden_Input(
+                        array(
+                            'html_id' => 'ee-paypal-payment-token',
+                        )
+                    ),
+                    'payment_id' => new EE_Hidden_Input(
+                        array(
+                            'html_id' => 'ee-paypal-payment-id',
+                        )
+                    ),
+                    'order_id' => new EE_Hidden_Input(
+                        array(
+                            'html_id' => 'ee-paypal-order-id'
+                        )
+                    ),
+                    'payer_id' => new EE_Hidden_Input(
+                        array(
+                            'html_id' => 'ee-paypal-payer-id'
+                        )
+                    ),
+                )
             )
         );
         parent::__construct($payment_method, $options_array);
@@ -111,16 +110,16 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
                 'data' => array(
                     'currency' => EE_Config::instance()->currency->code,
                     'transaction_total' => $this->transaction->remaining(),
-                    'payment_div_selector' => '#paypal-button-container',
+                    'payment_div_selector' => '#ee-paypal-button-container',
                     'sandbox_mode' => $this->_pm_instance->debug_mode(),
                     'client_id' => $this->_pm_instance->get_extra_meta('client_id', true),
                     'slug' => $this->_pm_instance->slug(),
                     'button_shape' => $this->_pm_instance->get_extra_meta('button_shape', true),
                     'next_button_selector' => '#spco-go-to-step-finalize_registration-submit',
-                    'hidden_input_payer_id_selector' => '#paypal-payer-id',
-                    'hidden_input_payment_id_selector' => '#paypal-payment-id',
-                    'hidden_input_payment_token_selector' => '#paypal-payment-token',
-                    'hidden_input_order_id_selector' => '#paypal-order-id',
+                    'hidden_input_payer_id_selector' => '#ee-paypal-payer-id',
+                    'hidden_input_payment_id_selector' => '#ee-paypal-payment-id',
+                    'hidden_input_payment_token_selector' => '#ee-paypal-payment-token',
+                    'hidden_input_order_id_selector' => '#ee-paypal-order-id',
                 ),
                 'translations' => array(
                     'no_SPCO_error' => esc_html__('It appears the Single Page Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
