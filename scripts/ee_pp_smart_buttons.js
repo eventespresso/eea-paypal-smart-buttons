@@ -144,7 +144,6 @@ function EegPayPalSmartButtons (instance_vars, translations) {
 		if (! this.initialized) {
 			this.initialize_objects();
 			this.set_listener_for_payment_amount_change();
-			this.set_listener_for_leave_page();
 		}
 		this.show_smart_buttons();
 	};
@@ -160,14 +159,6 @@ function EegPayPalSmartButtons (instance_vars, translations) {
 		});
 	};
 
-	/**
-	 * When the user leaves the page, do them the courtesy of closing the pop-up window
-	 */
-	this.set_listener_for_leave_page = function() {
-		jQuery(window).on( 'popstate', function() {
-			alert('close teh window please!');
-		});
-	};
 
 	/**
 	 * Hide the smart buttons and show the normal "Proceed with payment" button.
