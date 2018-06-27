@@ -74,13 +74,6 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
                     // PayPal upon form submission
                     'access_token' => new EE_Hidden_Input()
                 ),
-                // button URL and "open by default" don't apply because PayPal's javascript generates the button,
-                // and users should never see this payment method selected normally like others
-                // (when they click PayPal's button, the pop-up window immediately appears, no need for another click)
-                'exclude'           => array(
-                    'PMD_button_url',
-                    'PMD_open_by_default'
-                ),
             )
         );
         parent::__construct($options_array);
