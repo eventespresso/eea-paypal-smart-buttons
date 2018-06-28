@@ -86,7 +86,8 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
      * @throws InvalidArgumentException
      * @throws ReflectionException
      */
-    public function enqueue_js()
+    // @codingStandardsIgnoreStart
+    public function enqueue_js()// @codingStandardsIgnoreEnd
     {
         parent::enqueue_js();
         wp_register_script('paypal_smart_buttons', 'https://www.paypalobjects.com/api/checkout.js');
