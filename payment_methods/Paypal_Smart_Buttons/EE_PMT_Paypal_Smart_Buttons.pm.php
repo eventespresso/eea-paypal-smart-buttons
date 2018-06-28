@@ -1,5 +1,6 @@
 <?php
 
+use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonBillingForm;
 use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonSettingsForm;
 
 /**
@@ -20,10 +21,11 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
      */
     public function __construct($pm_instance = null)
     {
+        $this->_default_button_url = $this->file_url() . 'lib/paypal-logo.png';
         require_once($this->file_folder().'EEG_Paypal_Smart_Buttons.gateway.php');
         $this->_gateway = new EEG_Paypal_Smart_Buttons();
         $this->_pretty_name = __("PayPal Express Checkout with Smart Buttons", 'event_espresso');
-        $this->_default_description = __('If payment with PayPal is unsuccessful, please try an alternative method, or contact us.', 'event_espresso');
+        $this->_default_description = __('Please select one of the following options provided by PayPal:', 'event_espresso');
         $this->_requires_https = false;
         parent::__construct($pm_instance);
     }
@@ -45,40 +47,13 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
 
     /**
      * Creates the billing form for this payment method type
-     * @param \EE_Transaction $transaction
-     * @throws \EE_Error
-     * @return EE_Billing_Info_Form
+     *
+     * @param EE_Transaction $transaction
+     * @return PayPalSmartButtonBillingForm
      */
     public function generate_new_billing_form(EE_Transaction $transaction = null)
     {
-        return new EE_Billing_Info_Form(
-            $this->_pm_instance,
-            array(
-                'subsections' =>
-                array(
-                    'payment_token' => new EE_Hidden_Input(
-                        array(
-                            'html_id' => 'paypal-payment-token',
-                        )
-                    ),
-                    'payment_id' => new EE_Hidden_Input(
-                        array(
-                            'html_id' => 'paypal-payment-id',
-                        )
-                    ),
-                    'order_id' => new EE_Hidden_Input(
-                        array(
-                            'html_id' => 'paypal-order-id'
-                        )
-                    ),
-                    'payer_id' => new EE_Hidden_Input(
-                        array(
-                            'html_id' => 'paypal-payer-id'
-                        )
-                    ),
-                )
-            )
-        );
+        return new PayPalSmartButtonBillingForm($this->_pm_instance, $transaction);
     }
 
 
