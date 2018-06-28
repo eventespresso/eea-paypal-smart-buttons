@@ -9,7 +9,7 @@ use EventEspresso\core\exceptions\EntityNotFoundException;
  *
  * @package        Event Espresso
  * @author         Mike Nelson
- * @since          $VID:$
+ * @since          1.0.0.p
  *
  */
 class EED_Paypal_Smart_Buttons extends EED_Module

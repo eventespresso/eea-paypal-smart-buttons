@@ -12,7 +12,7 @@ use WP_Error;
  *
  * @package        Event Espresso
  * @author         Mike Nelson
- * @since          $VID:$
+ * @since          1.0.0.p
  *
  */
 class PayPalRestApiClient
