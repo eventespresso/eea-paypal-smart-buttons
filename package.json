@@ -1,7 +1,7 @@
 {
   "name": "@eventespresso/eea-paypal-smart-buttons",
   "version": "1.0.0",
-  "description": "An add-on for Event Espresso 4.",
+  "description": "An add-on for Event Espresso 4 that adds support for PayPal Express Checkout with Smart Buttons",
   "main": "webpack.dev.js",
   "repository": "git+https://github.com/eventespresso/eea-paypal-smart-buttons.git",
   "scripts": {
