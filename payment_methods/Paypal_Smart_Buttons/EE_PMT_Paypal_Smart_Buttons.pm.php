@@ -31,6 +31,15 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
     }
 
 
+    /**
+     * Let's just use a shorter name on the frontend
+     * @return string
+     */
+    public function defaultFrontendName()
+    {
+        return esc_html__('PayPal Express Checkout', 'event_espresso');
+    }
+
 
     /**
      * Gets the form for all the settings related to this payment method type
