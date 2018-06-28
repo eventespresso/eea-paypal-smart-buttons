@@ -80,7 +80,8 @@ class PayPalRestApiClient
             array(
                 'headers' => array(
                     'Content-Type' => 'application/json',
-                    'Authorization' => 'Bearer ' . $this->access_token
+                    'Authorization' => 'Bearer ' . $this->access_token,
+                    'PayPal-Partner-Attribution-Id' => 'EventEspresso_SP'
                 ),
                 'body' => $json
             )
