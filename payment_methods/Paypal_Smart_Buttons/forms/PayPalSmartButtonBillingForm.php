@@ -21,7 +21,7 @@ use ReflectionException;
  *
  * @package        Event Espresso
  * @author         Mike Nelson
- * @since          $VID:$
+ * @since          1.0.0.p
  *
  */
 class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
