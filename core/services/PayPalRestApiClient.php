@@ -122,6 +122,7 @@ class PayPalRestApiClient
                 'headers' => array(
                     'Accept'        => 'application/json',
                     'Authorization' => 'Basic ' . base64_encode($this->client_id . ':' . $this->secret),
+                    'PayPal-Partner-Attribution-Id' => 'EventEspresso_SP'
                 ),
                 'body'    => array(
                     'grant_type' => 'client_credentials',
