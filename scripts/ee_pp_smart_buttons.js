@@ -232,7 +232,10 @@ function EegPayPalSmartButtons (instance_vars, translations) {
 							{
 								amount: { total: this.transaction_total, currency: this.currency}
 							}
-						]
+						],
+					},
+					meta: {
+						partner_attribution_id: 'EventEspresso_SP'
 					}
 				});
 			},
