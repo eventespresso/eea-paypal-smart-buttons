@@ -65,6 +65,7 @@ function EegPayPalSmartButtons (instance_vars, translations) {
 	this.set_init_listeners = function() {
 		this.set_listener_for_payment_method_selector();
 		this.set_listener_for_display_spco();
+        this.set_listener_for_payment_amount_change();
 		//also, if the page was reloaded on the payment option step, we should initialize immediately
 		if (this.billing_form_loaded()) {
 			this.initialize();
@@ -143,7 +144,6 @@ function EegPayPalSmartButtons (instance_vars, translations) {
 
 		if (! this.initialized) {
 			this.initialize_objects();
-			this.set_listener_for_payment_amount_change();
 		}
 		this.show_smart_buttons();
 	};
