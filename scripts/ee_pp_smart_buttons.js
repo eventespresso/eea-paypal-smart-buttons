@@ -215,10 +215,6 @@ function EegPayPalSmartButtons(instance_vars, translations) {
                 disallowed: []
             },
 
-            // Change the wording on the PayPal popup
-            // See: https://github.com/paypal/paypal-checkout/issues/554
-            commit: true,
-
             // PayPal Client IDs - replace with your own
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create
 
