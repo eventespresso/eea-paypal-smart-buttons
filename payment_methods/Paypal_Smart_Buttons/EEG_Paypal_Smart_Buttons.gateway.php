@@ -57,6 +57,7 @@ class EEG_Paypal_Smart_Buttons extends EE_Onsite_Gateway
         'TRY',
         'TWD',
         'RUB',
+        'INR',
     );
 
     /**
