@@ -43,7 +43,7 @@ class EE_Paypal_Smart_Buttons extends EE_Addon
                 'admin_callback' => 'additional_admin_hooks',
                 // if plugin update engine is being used for auto-updates. not needed if PUE is not being used.
                 'pue_options'           => array(
-                    'pue_plugin_slug' => 'espresso_paypal_smart_buttons',
+                    'pue_plugin_slug' => 'eea-paypal-smart-buttons',
                     'plugin_basename' => EE_PAYPAL_SMART_BUTTONS_BASENAME,
                     'checkPeriod' => '24',
                     'use_wp_update' => false,
