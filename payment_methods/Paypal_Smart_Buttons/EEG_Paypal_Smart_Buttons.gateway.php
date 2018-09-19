@@ -173,7 +173,7 @@ class EEG_Paypal_Smart_Buttons extends EE_Onsite_Gateway
             $payment->set_details($e->getTraceAsString());
             $this->log(
                 array(
-                    'error_message' => $e->getTrace(),
+                    'error_message' => $e->getMessage(),
                     'error_trace' => $e->getTraceAsString(),
                     'billing_info' => $billing_info
                 ),
