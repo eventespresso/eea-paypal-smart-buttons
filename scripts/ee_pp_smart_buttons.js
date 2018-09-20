@@ -203,21 +203,8 @@ function EegPayPalSmartButtons(instance_vars, translations) {
                 shape: this.button_shape,      // pill | rect
             },
 
-            // Specify allowed and disallowed funding sources
-            //
-            // Options:
-            // - paypal.FUNDING.CARD
-            // - paypal.FUNDING.CREDIT
-            // - paypal.FUNDING.ELV
-
-            funding: {
-                allowed: [paypal.FUNDING.CARD, paypal.FUNDING.CREDIT],
-                disallowed: []
-            },
-
             // PayPal Client IDs - replace with your own
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create
-
             client: {
                 sandbox: this.client_id,
                 production: this.client_id
