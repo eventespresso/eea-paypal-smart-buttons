@@ -78,6 +78,7 @@ class PayPalRestApiClient
         $response = wp_remote_post(
             $url,
             array(
+                'timeout' => 60,
                 'headers' => array(
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer ' . $this->access_token,
@@ -119,6 +120,7 @@ class PayPalRestApiClient
         $response = wp_remote_post(
             $base_url . '/v1/oauth2/token',
             array(
+                'timeout' => 60,
                 'headers' => array(
                     'Accept'        => 'application/json',
                     'Authorization' => 'Basic ' . base64_encode($this->client_id . ':' . $this->secret),
