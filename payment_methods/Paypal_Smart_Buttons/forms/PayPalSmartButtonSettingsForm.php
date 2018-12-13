@@ -110,7 +110,7 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
                     )
                 );
             } catch (EE_Error $e) {
-                if($e->getMessage() === 'Unauthorized') {
+                if ($e->getMessage() === 'Unauthorized') {
                     $message = esc_html__('PayPal did not accept your API credentials. Double-check your credentials and copy and paste them into the fields again and save changes. Alternatively, create a new app and try the new API credentials.', 'event_espresso');
                     // Give them a few more tips inline.
                     $this->get_input('PMD_debug_mode')->add_validation_error(
@@ -122,7 +122,7 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
                     $this->get_input('secret')->add_validation_error(
                         esc_html__('Are you sure this is your REST API App Client ID, not your login password?', 'event_espresso')
                     );
-                } else  {
+                } else {
                     $message = esc_html(
                         sprintf(
                             _x(
