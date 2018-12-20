@@ -111,20 +111,37 @@ class PayPalSmartButtonSettingsForm extends EE_Payment_Method_Form
                 );
             } catch (EE_Error $e) {
                 if ($e->getMessage() === 'Unauthorized') {
-                    $message = esc_html__('PayPal did not accept your API credentials. Double-check your credentials and copy and paste them into the fields again and save changes. Alternatively, create a new app and try the new API credentials.', 'event_espresso');
+                    $message = esc_html__(
+                        // @codingStandardsIgnoreStart
+                        'PayPal did not accept your API credentials. Double-check your credentials and copy and paste them into the fields again and save changes. Alternatively, create a new app and try the new API credentials.',
+                        // @codingStandardsIgnoreEnd
+                        'event_espresso'
+                    );
                     // Give them a few more tips inline.
                     $this->get_input('PMD_debug_mode')->add_validation_error(
-                        esc_html__('If you are using PayPal Sandbox (test) credentials, Debug mode should be set to "Yes". Otherwise, if you are using live PayPal credentials, set this to "No".', 'event_espresso')
+                        esc_html__(
+                            // @codingStandardsIgnoreStart
+                            'If you are using PayPal Sandbox (test) credentials, Debug mode should be set to "Yes". Otherwise, if you are using live PayPal credentials, set this to "No".',
+                            // @codingStandardsIgnoreEnd
+                            'event_espresso'
+                        )
                     );
                     $this->get_input('client_id')->add_validation_error(
-                        esc_html__('Are you sure this is your REST API App Client ID, not your login username?%1$s', 'event_espresso')
+                        esc_html__(
+                            'Are you sure this is your REST API App Client ID, not your login username?',
+                            'event_espresso'
+                        )
                     );
                     $this->get_input('secret')->add_validation_error(
-                        esc_html__('Are you sure this is your REST API App Client ID, not your login password?', 'event_espresso')
+                        esc_html__(
+                            'Are you sure this is your REST API App Client ID, not your login password?',
+                            'event_espresso'
+                        )
                     );
                 } else {
                     $message = esc_html(
                         sprintf(
+                            // translators: %1$s error message
                             _x(
                                 'Error validating PayPal credentials. %1$s',
                                 'Error validating PayPal credentials. Error description',
