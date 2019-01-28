@@ -236,7 +236,12 @@ function EegPayPalSmartButtons(instance_vars, translations) {
                 this.hidden_input_payment_id.val(data.paymentID);
                 this.hidden_input_payment_token.val(data.paymentToken);
                 this.hidden_input_order_id.val(data.orderID);
-                this.next_button.trigger('click');
+                // Wait a second before submitting in order to avoid accidentally submittinb before the values were updated.
+                setTimeout(() => {
+                    this.next_button.trigger('click');
+                },
+                    1000);
+
             },
             onError: (data, actions) => {
                 if (typeof(data) !== 'undefined' && typeof(data.message) !== 'undefined') {
