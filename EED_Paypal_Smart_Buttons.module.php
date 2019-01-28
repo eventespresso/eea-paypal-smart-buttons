@@ -1,6 +1,7 @@
 <?php
 
 use EventEspresso\core\exceptions\EntityNotFoundException;
+use EventEspresso\core\services\loaders\LoaderFactory;
 
 /**
  * Class EED_Paypal_Smart_Buttons
@@ -16,6 +17,8 @@ class EED_Paypal_Smart_Buttons extends EED_Module
 {
     public static function set_hooks()
     {
+        $this_module = new EED_Paypal_Smart_Buttons();
+        add_action('init',array($this_module, 'enqueueScripts'));
     }
 
     public static function set_hooks_admin()
@@ -85,6 +88,17 @@ class EED_Paypal_Smart_Buttons extends EED_Module
     public function run($WP)
     {
         // nothing to do here
+    }
+
+    public function enqueueScripts()
+    {
+        $registry = LoaderFactory::getLoader()->getShared('EventEspresso\core\services\assets\Registry');
+
+        $registry->registerManifestFile(
+            'eePaypalSmartButtons',
+            plugin_dir_path(__FILE__) . '/assets/',
+            plugin_dir_path(__FILE__) . '/assets/build/manifest.json'
+        );
     }
 }
 // End of file EED_Paypal_Smart_Buttons.php

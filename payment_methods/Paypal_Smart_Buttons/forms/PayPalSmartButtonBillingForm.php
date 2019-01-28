@@ -11,6 +11,8 @@ use EE_Payment_Method;
 use EE_Transaction;
 use EventEspresso\core\exceptions\InvalidDataTypeException;
 use EventEspresso\core\exceptions\InvalidInterfaceException;
+use EventEspresso\core\services\assets\Registry;
+use EventEspresso\core\services\loaders\LoaderFactory;
 use InvalidArgumentException;
 use ReflectionException;
 
@@ -90,14 +92,16 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
     public function enqueue_js()// @codingStandardsIgnoreEnd
     {
         parent::enqueue_js();
+        $registry = LoaderFactory::getLoader()->getShared('EventEspresso\core\services\assets\Registry');
         // enqueue PayPal's javascript library
         // see https://github.com/paypal/paypal-checkout/tree/master/docs for documentation on it
         wp_register_script('paypal_smart_buttons', 'https://www.paypalobjects.com/api/checkout.js');
         wp_enqueue_script(
-            'ee_paypal_smart_buttons',
-            EE_PAYPAL_SMART_BUTTONS_URL . '/scripts/ee_pp_smart_buttons.js',
+            'ee-paypal-smart-buttons',
+            $registry->getAssetUrl('eePaypalSmartButtons', 'spco', 'js'),
+//            EE_PAYPAL_SMART_BUTTONS_URL . '/scripts/ee_pp_smart_buttons.js',
             array('paypal_smart_buttons', 'jquery', 'espresso_core', 'single_page_checkout'),
-            EE_PAYPAL_SMART_BUTTONS_VERSION,
+            null,
             true
         );
         wp_enqueue_style(
