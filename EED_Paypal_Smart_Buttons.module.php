@@ -18,7 +18,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
     public static function set_hooks()
     {
         $this_module = new EED_Paypal_Smart_Buttons();
-        add_action('init',array($this_module, 'enqueueScripts'));
+        add_action('init', array($this_module, 'enqueueScripts'));
     }
 
     public static function set_hooks_admin()
