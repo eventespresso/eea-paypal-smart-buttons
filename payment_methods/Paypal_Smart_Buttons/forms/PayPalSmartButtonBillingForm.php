@@ -97,7 +97,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
         // see https://github.com/paypal/paypal-checkout/tree/master/docs for documentation on it
         wp_register_script('paypal_smart_buttons', 'https://www.paypalobjects.com/api/checkout.js');
         wp_enqueue_script(
-            'ee-paypal-smart-buttons',
+            'ee_paypal_smart_buttons',
             $registry->getAssetUrl('ee-paypal-smart-buttons', 'paypal-smart-buttons', 'js'),
             array('paypal_smart_buttons', 'jquery', 'espresso_core', 'single_page_checkout', 'eejs-core'),
             null,

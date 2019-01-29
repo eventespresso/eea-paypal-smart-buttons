@@ -1,6 +1,7 @@
 /**
  * @var ee_paypal_smart_button_args array of localized variables
  */
+var ee_paypal_smart_buttons = null;
 jQuery(document).ready(function () {
     //add SPCO object
     ee_paypal_smart_buttons_args.data.spco = SPCO;
