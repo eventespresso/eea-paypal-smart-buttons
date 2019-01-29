@@ -96,8 +96,8 @@ class EED_Paypal_Smart_Buttons extends EED_Module
 
         $registry->registerManifestFile(
             'ee-paypal-smart-buttons',
-            plugin_dir_path(__FILE__) . '/assets/',
-            plugin_dir_path(__FILE__) . '/assets/build/manifest.json'
+            EE_PAYPAL_SMART_BUTTONS_URL . 'assets/dist',
+            EE_PAYPAL_SMART_BUTTONS_PATH . 'assets/dist/build-manifest.json'
         );
     }
 }

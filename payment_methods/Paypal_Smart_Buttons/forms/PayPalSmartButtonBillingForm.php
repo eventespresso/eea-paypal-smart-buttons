@@ -98,8 +98,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
         wp_register_script('paypal_smart_buttons', 'https://www.paypalobjects.com/api/checkout.js');
         wp_enqueue_script(
             'ee-paypal-smart-buttons',
-            $registry->getAssetUrl('eePaypalSmartButtons', 'spco', 'js'),
-//            EE_PAYPAL_SMART_BUTTONS_URL . '/scripts/ee_pp_smart_buttons.js',
+            $registry->getAssetUrl('ee-paypal-smart-buttons', 'paypal-smart-buttons', 'js'),
             array('paypal_smart_buttons', 'jquery', 'espresso_core', 'single_page_checkout', 'eejs-core'),
             null,
             true
