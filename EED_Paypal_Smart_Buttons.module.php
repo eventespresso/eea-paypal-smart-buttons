@@ -95,7 +95,7 @@ class EED_Paypal_Smart_Buttons extends EED_Module
         $registry = LoaderFactory::getLoader()->getShared('EventEspresso\core\services\assets\Registry');
 
         $registry->registerManifestFile(
-            'eePaypalSmartButtons',
+            'ee-paypal-smart-buttons',
             plugin_dir_path(__FILE__) . '/assets/',
             plugin_dir_path(__FILE__) . '/assets/build/manifest.json'
         );
