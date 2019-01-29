@@ -100,7 +100,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
             'ee-paypal-smart-buttons',
             $registry->getAssetUrl('eePaypalSmartButtons', 'spco', 'js'),
 //            EE_PAYPAL_SMART_BUTTONS_URL . '/scripts/ee_pp_smart_buttons.js',
-            array('paypal_smart_buttons', 'jquery', 'espresso_core', 'single_page_checkout'),
+            array('paypal_smart_buttons', 'jquery', 'espresso_core', 'single_page_checkout', 'eejs-core'),
             null,
             true
         );
