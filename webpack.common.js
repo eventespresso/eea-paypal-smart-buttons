@@ -5,7 +5,6 @@ const externals = {
 	jquery: 'jQuery',
 	'@eventespresso/eejs': 'eejs',
 	'@eventespresso/i18n': 'eejs.i18n',
-	'@wordpress/api-fetch': 'wp.apiFetch',
 };
 /** see below for multiple configurations.
  /** https://webpack.js.org/configuration/configuration-types/#exporting-multiple-configurations */

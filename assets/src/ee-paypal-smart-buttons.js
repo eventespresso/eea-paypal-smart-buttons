@@ -1,7 +1,7 @@
 import paypal from 'paypal';
 import warning from 'warning';
 import jQuery from 'jquery';
-import {data} from '@eventespresso/eejs';
+import { data } from '@eventespresso/eejs';
 /**
  * @var ee_paypal_smart_button_args array of localized variables
  */
@@ -142,7 +142,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 		! this.spco.main_container ) {
 			this.hideSmartButtons();
 			// No SPCO object, so we can't use SPCO to show a nice error message. At least put something in the console.
-			warning( true, this.translations.no_SPCO_error );
+			warning( false, this.translations.no_SPCO_error );
 			return;
 		}
 		// ensure that the Paypal object (from https://www.paypalobjects.com/api/checkout.js) js class is loaded
