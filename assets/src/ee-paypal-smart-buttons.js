@@ -4,8 +4,8 @@
 let eePaypalSmartButtons = null;
 jQuery( document ).ready( () => {
 	//add SPCO object
-	let eePpSmartButtonsData = eejsdata.data.paypalSmartButtons;
-    eePpSmartButtonsData.data.spco = SPCO;
+	const eePpSmartButtonsData = eejsdata.data.paypalSmartButtons;
+	eePpSmartButtonsData.data.spco = SPCO;
 	//create the smart buttons object
 	eePaypalSmartButtons = new EegPayPalSmartButtons( eePpSmartButtonsData.data, eePpSmartButtonsData.translations );
 	//and set it up to listen for its cue to get initialized
