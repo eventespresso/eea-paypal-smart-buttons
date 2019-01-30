@@ -3,7 +3,6 @@ const assets = './assets/src/';
 const externals = {
 	paypal: 'paypal',
 	jquery: 'jQuery',
-	SPCO: 'SPCO',
 	'@eventespresso/eejs': 'eejs',
 	'@eventespresso/i18n': 'eejs.i18n',
 	'@wordpress/api-fetch': 'wp.apiFetch',
