@@ -1,3 +1,6 @@
+import paypal from 'paypal';
+import warning from 'warning';
+import jQuery from 'jQuery';
 /**
  * @var ee_paypal_smart_button_args array of localized variables
  */
@@ -5,11 +8,12 @@ let eePaypalSmartButtons = null;
 jQuery( document ).ready( () => {
 	//add SPCO object
 	const eePpSmartButtonsData = eejsdata.data.paypalSmartButtons;
-	eePpSmartButtonsData.data.spco = SPCO;
+	eePpSmartButtonsData.data.spco = window.SPCO || null;
+	eePpSmartButtonsData.data.paypal = paypal || null;
 	//create the smart buttons object
 	eePaypalSmartButtons = new EegPayPalSmartButtons( eePpSmartButtonsData.data, eePpSmartButtonsData.translations );
 	//and set it up to listen for its cue to get initialized
-	eePaypalSmartButtons.set_init_listeners();
+	eePaypalSmartButtons.setInitListeners();
 } );
 
 /**
@@ -38,13 +42,14 @@ jQuery( document ).ready( () => {
  */
 function EegPayPalSmartButtons( instanceVars, translations ) {
 	this.spco = instanceVars.spco;
+	this.paypal = instanceVars.paypal;
 	this.currency = instanceVars.currency;
-	this.transaction_total = instanceVars.transaction_total;
-	this.payment_div_selector = instanceVars.payment_div_selector;
-	this.sandbox_mode = instanceVars.sandbox_mode;
-	this.client_id = instanceVars.client_id;
+	this.transactionTotal = instanceVars.transaction_total;
+	this.paymentDivSelector = instanceVars.payment_div_selector;
+	this.sandboxMode = instanceVars.sandbox_mode;
+	this.clientId = instanceVars.client_id;
 	this.slug = instanceVars.slug;
-	this.button_shape = instanceVars.button_shape;
+	this.buttonShape = instanceVars.button_shape;
 	this.nextButtonSelector = instanceVars.nextButtonSelector;
 	this.hiddenInputPayerIdSelector = instanceVars.hiddenInputPayerIdSelector;
 	this.hiddenInputPaymentIdSelector = instanceVars.hiddenInputPaymentIdSelector;
@@ -54,8 +59,8 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 	this.initialized = false;
 	this.translations = translations;
 
-	this.payment_div = null;
-	this.next_button = null;
+	this.paymentDiv = null;
+	this.nextButton = null;
 	this.hiddenInputPayerId = null;
 	this.hiddenInputPaymentId = null;
 	this.hiddenInputPaymentToken = null;
@@ -64,12 +69,12 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 	/**
      * Sets listeners that will trigger initializing the smart buttons.
      */
-	this.set_init_listeners = function() {
-		this.set_listener_for_payment_method_selector();
-		this.set_listener_for_display_spco();
-		this.set_listener_for_payment_amount_change();
+	this.setInitListeners = function() {
+		this.setListenerForPaymentMethodSelector();
+		this.setListenerForDisplaySpco();
+		this.setListenerForPaymentAmountChange();
 		//also, if the page was reloaded on the payment option step, we should initialize immediately
-		if ( this.billing_form_loaded() ) {
+		if ( this.billingFormLoaded() ) {
 			this.initialize();
 		}
 	};
@@ -79,11 +84,11 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
      * form is present, initialize the smart buttons
      *
      */
-	this.set_listener_for_display_spco = function() {
+	this.setListenerForDisplaySpco = function() {
 		this.spco.main_container.on( 'spco_display_step', ( event, stepToShow ) => {
 			if ( typeof stepToShow !== 'undefined' &&
                 stepToShow === 'payment_options' &&
-                this.billing_form_loaded()
+                this.billingFormLoaded()
 			) {
 				this.initialize();
 			}
@@ -95,14 +100,13 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
      * initialize the smart button (or if it's already initialized, just show it again).
      * If they selected a different payment method, hide the smart buttons
      */
-	this.set_listener_for_payment_method_selector = function() {
+	this.setListenerForPaymentMethodSelector = function() {
 		this.spco.main_container.on( 'spco_switch_payment_methods', ( event, paymentMethod ) => {
-			//SPCO.console_log( 'payment_method', payment_method, false );
 			if ( typeof paymentMethod !== 'undefined' && paymentMethod === this.slug ) {
 				this.initialize();
 			} else if ( this.initialized ) {
 				//and if this was previously initialized, make sure we hide the button
-				this.hide_smart_buttons();
+				this.hideSmartButtons();
 			}
 		} );
 	};
@@ -111,16 +115,16 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
      * Returns true if this payment method's billing form exists on the page
      * @return {boolean} whether it was successffully loaded or not.
      */
-	this.billing_form_loaded = function() {
+	this.billingFormLoaded = function() {
 		return jQuery( this.hiddenInputPaymentIdSelector ).length > 0;
 	};
 
 	/**
      * Initializes jQuery selected objects so we don't need to query for anything afterwards
      */
-	this.initialize_objects = function() {
-		this.next_button = jQuery( this.nextButtonSelector );
-		this.payment_div = jQuery( this.payment_div_selector );
+	this.initializeObjects = function() {
+		this.nextButton = jQuery( this.nextButtonSelector );
+		this.paymentDiv = jQuery( this.paymentDivSelector );
 		this.hiddenInputPayerId = jQuery( this.hiddenInputPayerIdSelector );
 		this.hiddenInputPaymentId = jQuery( this.hiddenInputPaymentIdSelector );
 		this.hiddenInputPaymentToken = jQuery( this.hiddenInputPaymentTokenSelector );
@@ -131,30 +135,36 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
      * Shows the smart buttons (this may require initializing them) and otherwise initializes this object
      */
 	this.initialize = function() {
-		if ( typeof this.spco === 'undefined' ) {
-			this.hide_smart_buttons();
-			this.spco.show_event_queue_ajax_msg( 'error', this.translations.no_SPCO_error, this.spco.notice_fadeout_attention, true );
+		if ( typeof this.spco === 'undefined' ||
+		typeof this.spco.show_event_queue_ajax_msg !== 'function' ||
+		typeof this.spco.display_messages !== 'function' ||
+		! this.spco.main_container ) {
+			this.hideSmartButtons();
+			// No SPCO object, so we can't use SPCO to show a nice error message. At least put something in the console.
+			warning( true, this.translations.no_SPCO_error );
 			return;
 		}
-		// ensure that the StripeCheckout js class is loaded
-		if ( typeof paypal === 'undefined' ) {
+		// ensure that the Paypal object (from https://www.paypalobjects.com/api/checkout.js) js class is loaded
+		if ( typeof this.paypal === 'undefined' ||
+		typeof this.paypal.Button !== 'object' ||
+		typeof this.paypal.Button.render !== 'function' ) {
 			this.spco.show_event_queue_ajax_msg( 'error', this.translations.no_paypal_js, this.spco.notice_fadeout_attention, true );
 			return;
 		}
 
 		if ( ! this.initialized ) {
-			this.initialize_objects();
+			this.initializeObjects();
 		}
-		this.show_smart_buttons();
+		this.showSmartButtons();
 	};
 
 	/**
      * When the payment amount changes, just update this object's transaction_total
      */
-	this.set_listener_for_payment_amount_change = function() {
+	this.setListenerForPaymentAmountChange = function() {
 		this.spco.main_container.on( 'spco_payment_amount', ( event, paymentAmount ) => {
 			if ( typeof paymentAmount !== 'undefined' && parseInt( paymentAmount ) !== 0 ) {
-				this.transaction_total = paymentAmount;
+				this.transactionTotal = paymentAmount;
 			}
 		} );
 	};
@@ -163,10 +173,10 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
      * Hide the smart buttons and show the normal "Proceed with payment" button.
      * Done when this payment method is de-selected
      */
-	this.hide_smart_buttons = function() {
-		this.next_button.show();
-		if ( this.payment_div.length > 0 ) {
-			this.payment_div.hide();
+	this.hideSmartButtons = function() {
+		this.nextButton.show();
+		if ( this.paymentDiv.length > 0 ) {
+			this.paymentDiv.hide();
 		}
 	};
 
@@ -174,31 +184,31 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
      * Show the smart button (if it hasn't yet been initialized, initialize it)
      * and hide the normal "proceed to finalize payment" button
      */
-	this.show_smart_buttons = function() {
+	this.showSmartButtons = function() {
 		if ( ! this.initialized ) {
-			this.initialize_smart_buttons();
+			this.initializeSmartButtons();
 		} else {
-			this.payment_div.show();
+			this.paymentDiv.show();
 		}
-		this.next_button.hide();
+		this.nextButton.hide();
 	};
 
-	this.initialize_smart_buttons = function() {
+	this.initializeSmartButtons = function() {
 		this.initialized = true;
 		//move the paypal button to the right spot
-		this.payment_div.insertBefore( this.next_button );
+		this.paymentDiv.insertBefore( this.nextButton );
 		paypal.Button.render( {
 
 			// Set your environment
 
-			env: this.sandbox_mode ? 'sandbox' : 'production', // sandbox | production
+			env: this.sandboxMode ? 'sandbox' : 'production', // sandbox | production
 
 			// Specify the style of the button
 			// locale: 'en_BR',
 			style: {
 				layout: 'vertical', // horizontal | vertical
 				size: 'responsive', // small, medium | large | responsive
-				shape: this.button_shape, // pill | rect
+				shape: this.buttonShape, // pill | rect
 			},
 
 			// Change the wording on the PayPal popup
@@ -208,8 +218,8 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 			// PayPal Client IDs - replace with your own
 			// Create a PayPal app: https://developer.paypal.com/developer/applications/create
 			client: {
-				sandbox: this.client_id,
-				production: this.client_id,
+				sandbox: this.clientId,
+				production: this.clientId,
 			},
 
 			payment: ( data, actions ) => {
@@ -218,7 +228,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 						//documentation on what format transactions can take: https://developer.paypal.com/docs/api/payments/#definition-transaction
 						transactions: [
 							{
-								amount: { total: this.transaction_total, currency: this.currency },
+								amount: { total: this.transactionTotal, currency: this.currency },
 							},
 						],
 					},
@@ -236,7 +246,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 				this.hiddeIinputOrderId.val( data.orderID );
 				// Wait a second before submitting in order to avoid accidentally submittinb before the values were updated.
 				setTimeout( () => {
-					this.next_button.trigger( 'click' );
+					this.nextButton.trigger( 'click' );
 				},
 				1000 );
 			},
@@ -253,7 +263,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 				this.spco.display_messages( messages, false );
 			},
 
-		}, this.payment_div_selector );
+		}, this.paymentDivSelector );
 	};
 }
 
