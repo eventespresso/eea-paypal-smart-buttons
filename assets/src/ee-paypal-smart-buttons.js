@@ -1,13 +1,14 @@
 import paypal from 'paypal';
 import warning from 'warning';
-import jQuery from 'jQuery';
+import jQuery from 'jquery';
+import {data} from '@eventespresso/eejs';
 /**
  * @var ee_paypal_smart_button_args array of localized variables
  */
 let eePaypalSmartButtons = null;
 jQuery( document ).ready( () => {
 	//add SPCO object
-	const eePpSmartButtonsData = eejsdata.data.paypalSmartButtons;
+	const eePpSmartButtonsData = data.paypalSmartButtons;
 	eePpSmartButtonsData.data.spco = window.SPCO || null;
 	eePpSmartButtonsData.data.paypal = paypal || null;
 	//create the smart buttons object
