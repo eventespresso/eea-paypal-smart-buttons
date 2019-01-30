@@ -109,11 +109,10 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
             array('single_page_checkout'),
             EE_PAYPAL_SMART_BUTTONS_VERSION
         );
-        wp_localize_script(
-            'ee_paypal_smart_buttons',
-            'ee_paypal_smart_buttons_args',
-            array(
-                'data' => array(
+        $registry->addData(
+            'paypalSmartButtons',
+            [
+                'data' => [
                     'currency' => EE_Config::instance()->currency->code,
                     'transaction_total' => $this->transaction->remaining(),
                     'payment_div_selector' => '#ee-paypal-button-container',
@@ -126,12 +125,12 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
                     'hiddenInputPaymentIdSelector' => '#ee-paypal-payment-id',
                     'hiddenInputPaymentTokenSelector' => '#ee-paypal-payment-token',
                     'hiddenInputOrderIdSelector' => '#ee-paypal-order-id',
-                ),
-                'translations' => array(
+                ],
+                'translations' => [
                     'no_SPCO_error' => esc_html__('It appears the Single Page Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
                     'no_paypal_js' => esc_html__('It appears the Paypal Express Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
-                )
-            )
+                ]
+            ]
         );
     }
 }
