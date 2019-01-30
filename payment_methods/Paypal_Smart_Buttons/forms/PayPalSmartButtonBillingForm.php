@@ -34,18 +34,26 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
      */
     protected $transaction;
 
+    protected $registry;
+
     /**
      * PayPalSmartButtonBillingForm constructor.
      *
      * @param EE_Payment_Method $payment_method
-     * @param EE_Transaction   $transaction
-     * @param array             $options_array
+     * @param EE_Transaction $transaction
+     * @param array $options_array
+     * @param Registry|null $registry
      */
     public function __construct(
         EE_Payment_Method $payment_method,
         EE_Transaction $transaction,
-        array $options_array = array()
+        array $options_array = array(),
+        Registry $registry = null
     ) {
+        if (!$registry instanceof Registry) {
+            $registry = LoaderFactory::getLoader()->getShared('EventEspresso\core\services\assets\Registry');
+        }
+        $this->registry = $registry;
         $this->transaction = $transaction;
         $options_array = array_replace_recursive(
             array(
@@ -92,13 +100,12 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
     public function enqueue_js()// @codingStandardsIgnoreEnd
     {
         parent::enqueue_js();
-        $registry = LoaderFactory::getLoader()->getShared('EventEspresso\core\services\assets\Registry');
         // enqueue PayPal's javascript library
         // see https://github.com/paypal/paypal-checkout/tree/master/docs for documentation on it
         wp_register_script('paypal_smart_buttons', 'https://www.paypalobjects.com/api/checkout.js');
         wp_enqueue_script(
             'ee_paypal_smart_buttons',
-            $registry->getAssetUrl('ee-paypal-smart-buttons', 'paypal-smart-buttons', 'js'),
+            $this->registry->getAssetUrl('ee-paypal-smart-buttons', 'paypal-smart-buttons', 'js'),
             array('paypal_smart_buttons', 'jquery', 'espresso_core', 'single_page_checkout', 'eejs-core'),
             null,
             true
@@ -109,7 +116,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
             array('single_page_checkout'),
             EE_PAYPAL_SMART_BUTTONS_VERSION
         );
-        $registry->addData(
+        $this->registry->addData(
             'paypalSmartButtons',
             [
                 'data' => [
