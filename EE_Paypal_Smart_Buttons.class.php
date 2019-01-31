@@ -58,6 +58,22 @@ class EE_Paypal_Smart_Buttons extends EE_Addon
         );
     }
 
+    /**
+     * @return void;
+     */
+    public function after_registration()
+    {
+        EE_Dependency_Map::register_dependencies(
+            'EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonBillingForm',
+            [
+                null,
+                null,
+                null,
+                'EventEspresso\core\services\assets\Registry' => EE_Dependency_Map::load_from_cache
+            ]
+        );
+    }
+
 
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use EventEspresso\core\services\loaders\LoaderFactory;
 use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonBillingForm;
 use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonSettingsForm;
 
@@ -62,7 +63,13 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
      */
     public function generate_new_billing_form(EE_Transaction $transaction = null)
     {
-        return new PayPalSmartButtonBillingForm($this->_pm_instance, $transaction);
+        return LoaderFactory::getLoader()->getNew(
+            'EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonBillingForm',
+            [
+                $this->_pm_instance,
+                $transaction
+            ]
+        );
     }
 
 
