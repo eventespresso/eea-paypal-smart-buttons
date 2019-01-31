@@ -223,7 +223,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 				production: this.clientId,
 			},
 
-			payment: ( data, actions ) => {
+			payment: ( paymentData, actions ) => {
 				return actions.payment.create( {
 					payment: {
 						//documentation on what format transactions can take: https://developer.paypal.com/docs/api/payments/#definition-transaction
@@ -239,22 +239,22 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 				} );
 			},
 
-			onAuthorize: ( data ) => {
+			onAuthorize: ( authData ) => {
 				// don't execute the payment here. Let's do it server-side where it's more secure
-				this.hiddenInputPayerId.val( data.payerID );
-				this.hiddenInputPaymentId.val( data.paymentID );
-				this.hiddenInputPaymentToken.val( data.paymentToken );
-				this.hiddeIinputOrderId.val( data.orderID );
-				// Wait a second before submitting in order to avoid accidentally submittinb before the values were updated.
+				this.hiddenInputPayerId.val( authData.payerID );
+				this.hiddenInputPaymentId.val( authData.paymentID );
+				this.hiddenInputPaymentToken.val( authData.paymentToken );
+				this.hiddeIinputOrderId.val( authData.orderID );
+				// Wait a second before submitting in order to avoid accidentally submitting before the values were updated.
 				setTimeout( () => {
 					this.nextButton.trigger( 'click' );
 				},
 				1000 );
 			},
-			onError: ( data ) => {
+			onError: ( errorData ) => {
 				let error = null;
-				if ( typeof( data ) !== 'undefined' && typeof( data.message ) !== 'undefined' ) {
-					error = data.message;
+				if ( typeof( errorData ) !== 'undefined' && typeof( errorData.message ) !== 'undefined' ) {
+					error = errorData.message;
 				} else {
 					error = 'An error occurred while processing payment with PayPal';
 				}
