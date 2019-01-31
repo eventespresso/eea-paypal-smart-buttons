@@ -11,4 +11,3 @@ translation-map.json
 node_modules/
 .DS_Store
 vendor/
-assets/dist/*
