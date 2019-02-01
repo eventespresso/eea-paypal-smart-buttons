@@ -245,11 +245,15 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 				this.hiddenInputPaymentId.val( authData.paymentID );
 				this.hiddenInputPaymentToken.val( authData.paymentToken );
 				this.hiddeIinputOrderId.val( authData.orderID );
-				// Wait a second before submitting in order to avoid accidentally submitting before the values were updated.
-				setTimeout( () => {
-					this.nextButton.trigger( 'click' );
-				},
-				1000 );
+                // now pull the payment from PayPal and set payment_id and payer_id as they are required for the payment
+                var eePpSmartButtonsObject = this;
+                return actions.payment.get()
+                    .then(function (paymentDetails) {
+                      eePpSmartButtonsObject.hidden_input_payer_id.val(paymentDetails.payer.payer_info.payer_id);
+                      eePpSmartButtonsObject.hidden_input_payment_id.val(paymentDetails.id);
+                      // submit as now we should definitely have all of the required details
+                      eePpSmartButtonsObject.next_button.trigger('click');
+                });
 			},
 			onError: ( errorData ) => {
 				let error = null;
