@@ -239,7 +239,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 				} );
 			},
 
-			onAuthorize: ( authData ) => {
+			onAuthorize: ( authData, actions ) => {
 				// don't execute the payment here. Let's do it server-side where it's more secure
 				this.hiddenInputPayerId.val( authData.payerID );
 				this.hiddenInputPaymentId.val( authData.paymentID );
