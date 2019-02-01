@@ -10,7 +10,7 @@ const assetsData = Object.create( null );
 common.forEach( ( config, index ) => {
 	common[ index ] = merge( config, {
 		plugins: [
-            new CleanWebpackPlugin( [ 'assets/dist', 'translation-map.json' ] ),
+			new CleanWebpackPlugin( [ 'assets/dist', 'translation-map.json' ] ),
 			new webpack.DefinePlugin( {
 				'process.env': {
 					NODE_ENV: JSON.stringify( 'production' ),

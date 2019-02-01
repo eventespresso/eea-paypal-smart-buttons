@@ -10,7 +10,7 @@ common.forEach( ( config, index ) => {
 	common[ index ] = merge( config, {
 		devtool: 'inline-source-map',
 		plugins: [
-		    new CleanWebpackPlugin( [ 'assets/dist' ] ),
+			new CleanWebpackPlugin( [ 'assets/dist' ] ),
 			new WebpackAssetsManifest( {
 				output: path.resolve( __dirname,
 					'assets/dist/build-manifest.json',
