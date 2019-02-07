@@ -249,11 +249,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 				this.hiddenInputPaymentId.val( authData.paymentID );
 				this.hiddenInputPaymentToken.val( authData.paymentToken );
 				this.hiddeIinputOrderId.val( authData.orderID );
-				// Wait a second before submitting in order to avoid accidentally submitting before the values were updated.
-				setTimeout( () => {
-					this.nextButton.trigger( 'click' );
-				},
-				1000 );
+				this.nextButton.trigger( 'click' );
 			},
 			onError: ( errorData ) => {
 				let error = null;
