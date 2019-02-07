@@ -125,8 +125,12 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 	 * Initializes jQuery selected objects so we don't need to query for anything afterwards
 	 */
 	this.initializeObjects = function() {
+		// Only initialize the paymentDiv once. It's not removed when branch switching, and PayPal's JS malfunctions
+		// if this gets reset.
+		if ( ! this.initialized ) {
+			this.paymentDiv = jQuery( this.paymentDivSelector );
+		}
 		this.nextButton = jQuery( this.nextButtonSelector );
-		this.paymentDiv = jQuery( this.paymentDivSelector );
 		this.hiddenInputPayerId = jQuery( this.hiddenInputPayerIdSelector );
 		this.hiddenInputPaymentId = jQuery( this.hiddenInputPaymentIdSelector );
 		this.hiddenInputPaymentToken = jQuery( this.hiddenInputPaymentTokenSelector );
@@ -153,10 +157,9 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 			this.spco.show_event_queue_ajax_msg( 'error', this.translations.no_paypal_js, this.spco.notice_fadeout_attention, true );
 			return;
 		}
-
-		if ( ! this.initialized ) {
-			this.initializeObjects();
-		}
+		// Always re-initialize jQuery objects. If they were payment method switching, the old billing for inputs got
+		// removed from the page and we need to find them again.
+		this.initializeObjects();
 		this.showSmartButtons();
 	};
 
