@@ -125,8 +125,8 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 	 * Initializes jQuery selected objects so we don't need to query for anything afterwards
 	 */
 	this.initializeObjects = function() {
-		// Only initialize the paymentDiv once. It's not removed when branch switching, and PayPal's JS malfunctions
-		// if this gets reset.
+		// Only initialize the paymentDiv once. It's not removed when switching payment methods, and PayPal's JS
+		// malfunctions if this gets reset.
 		if ( ! this.initialized ) {
 			this.paymentDiv = jQuery( this.paymentDivSelector );
 		}
