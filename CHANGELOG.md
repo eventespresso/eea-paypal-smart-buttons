@@ -15,5 +15,7 @@ Headings should be (only add headings as needed):
 
 ## [$VID:$]
 
+## [1.0.3.p]
+
 ### Added
 -  Adds support for Indian Rupees currency (INR) ([11](https://github.com/eventespresso/eea-paypal-smart-buttons/pull/11)) 
