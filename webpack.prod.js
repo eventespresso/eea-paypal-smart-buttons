@@ -8,18 +8,9 @@ const miniExtract = require( 'mini-css-extract-plugin' );
 const wpi18nExtractor = require( './bin/i18n-map-extractor.js' );
 const assetsData = Object.create( null );
 common.forEach( ( config, index ) => {
-	if ( common[ index ].configName === 'base' ) {
-		common[ index ].optimization = {
-			runtimeChunk: {
-				name: 'manifest',
-			},
-		};
-		common[ index ].plugins = [
-			new CleanWebpackPlugin( [ 'assets/dist', 'translation-map.json' ] ),
-		];
-	}
 	common[ index ] = merge( config, {
 		plugins: [
+			new CleanWebpackPlugin( [ 'assets/dist', 'translation-map.json' ] ),
 			new webpack.DefinePlugin( {
 				'process.env': {
 					NODE_ENV: JSON.stringify( 'production' ),
