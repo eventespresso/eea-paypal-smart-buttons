@@ -121,7 +121,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
             [
                 'data' => [
                     'currency' => EE_Config::instance()->currency->code,
-                    'transaction_total' => $this->transaction->remaining(),
+                    'transaction_total' => round($this->transaction->remaining(), 2),
                     'payment_div_selector' => '#ee-paypal-button-container',
                     'sandbox_mode' => $this->_pm_instance->debug_mode(),
                     'client_id' => $this->_pm_instance->get_extra_meta('client_id', true),
