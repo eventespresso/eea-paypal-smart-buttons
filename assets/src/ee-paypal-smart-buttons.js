@@ -233,7 +233,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 						//documentation on what format transactions can take: https://developer.paypal.com/docs/api/payments/#definition-transaction
 						transactions: [
 							{
-								amount: { total: this.transactionTotal, currency: this.currency },
+								amount: { total: this.round( this.transactionTotal, 2 ), currency: this.currency },
 							},
 						],
 					},
@@ -265,6 +265,17 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 			},
 
 		}, this.paymentDivSelector );
+	};
+
+	/**
+	 * Rounds a number to the specified precision.
+	 * See http://www.jacklmoore.com/notes/rounding-in-javascript/.
+	 * @param {number} value
+	 * @param {number} decimals
+	 * @return {number} The original value, to the given precision.
+	 */
+	this.round = function( value, decimals ) {
+		return Number( Math.round( value + 'e' + decimals ) + 'e-' + decimals );
 	};
 }
 
