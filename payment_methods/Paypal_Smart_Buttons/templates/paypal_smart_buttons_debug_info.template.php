@@ -13,14 +13,15 @@
  * @var $debug_mode
  */
 if ($debug_mode) {
-?>
+    ?>
 <div class="sandbox-panel">
     <h2 class="section-title"><?php esc_html_e('PayPal Sandbox Mode', 'event_espresso'); ?></h2>
-    <h3 class="important-notice"><?php
-        esc_html_e(
+    <h3 class="important-notice">
+        <?php esc_html_e(
             'Debug Mode Is Turned On. Payments will not be processed',
             'event_espresso'
-        ); ?></h3>
+        ); ?>
+    </h3>
 
     <h4 class="test-credit-cards-info-pg">
         <?php esc_html_e('Testing Guidelines', 'event_espresso'); ?>
