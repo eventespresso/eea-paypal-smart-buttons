@@ -6,6 +6,8 @@ use EE_Billing_Info_Form;
 use EE_Config;
 use EE_Error;
 use EE_Form_Section_HTML;
+use EE_Form_Section_Proper;
+use EE_Template_Layout;
 use EE_Hidden_Input;
 use EE_Payment_Method;
 use EE_Transaction;
@@ -60,6 +62,19 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
             array(
                 $options_array,
                 'subsections' => array(
+                    'debug' => new EE_Form_Section_Proper(
+                        array(
+                            'layout_strategy' => new EE_Template_Layout(
+                                array(
+                                    'layout_template_file' => $payment_method->type_obj()->file_folder()
+                                                                . 'templates/paypal_smart_buttons_debug_info.template.php',
+                                    'template_args'        => array(
+                                        'debug_mode' => $payment_method->debug_mode(),
+                                    )
+                                )
+                            )
+                        )
+                    ),
                     'payment_div' => new EE_Form_Section_HTML(
                         '<div id="ee-paypal-button-container" class="wide-paypal-smart-buttons"></div>'
                     ),
