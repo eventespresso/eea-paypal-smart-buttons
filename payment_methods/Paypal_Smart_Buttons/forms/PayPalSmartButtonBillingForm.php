@@ -132,8 +132,9 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
             array('single_page_checkout'),
             EE_PAYPAL_SMART_BUTTONS_VERSION
         );
-        $this->registry->addData(
-            'paypalSmartButtons',
+        wp_localize_script(
+            'ee_paypal_smart_buttons',
+            'eePpSmartButtonsData',
             [
                 'data' => [
                     'currency' => EE_Config::instance()->currency->code,
