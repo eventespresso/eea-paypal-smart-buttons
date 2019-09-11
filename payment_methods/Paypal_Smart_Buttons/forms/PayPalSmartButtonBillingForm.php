@@ -7,6 +7,7 @@ use EE_Config;
 use EE_Error;
 use EE_Form_Section_HTML;
 use EE_Form_Section_Proper;
+use EE_Registration;
 use EE_Template_Layout;
 use EE_Hidden_Input;
 use EE_Payment_Method;
@@ -136,7 +137,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
         $event_name = esc_html__('event', 'event_espresso');
         if ($this->transaction instanceof EE_Transaction) {
             $primary_reg = $this->transaction->primary_registration();
-            if($primary_reg instanceof EE_Registration){
+            if ($primary_reg instanceof EE_Registration) {
                 $event_name = $primary_reg->event_name();
             }
         };
