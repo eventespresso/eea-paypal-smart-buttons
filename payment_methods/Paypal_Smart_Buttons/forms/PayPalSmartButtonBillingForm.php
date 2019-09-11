@@ -165,9 +165,9 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
                     'no_SPCO_error' => esc_html__('It appears the Single Page Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
                     'no_paypal_js' => esc_html__('It appears the Paypal Express Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
                     'orderDescription' => sprintf(
-                        __('Event Registrations from %1$s for %2$s', "event_espresso"),
-                        wp_specialchars_decode(get_bloginfo(), ENT_QUOTES),
-                        $event_name
+                        __('Event Registrations for %2$s from %1$s', "event_espresso"),
+                        $event_name,
+                        wp_specialchars_decode(get_bloginfo(), ENT_QUOTES)
                     ),
                 ]
             ]
