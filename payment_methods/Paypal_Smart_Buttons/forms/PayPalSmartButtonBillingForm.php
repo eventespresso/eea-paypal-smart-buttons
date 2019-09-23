@@ -7,6 +7,7 @@ use EE_Config;
 use EE_Error;
 use EE_Form_Section_HTML;
 use EE_Form_Section_Proper;
+use EE_Registration;
 use EE_Template_Layout;
 use EE_Hidden_Input;
 use EE_Payment_Method;
@@ -132,6 +133,14 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
             array('single_page_checkout'),
             EE_PAYPAL_SMART_BUTTONS_VERSION
         );
+
+        $event_name = esc_html__('event', 'event_espresso');
+        if ($this->transaction instanceof EE_Transaction) {
+            $primary_reg = $this->transaction->primary_registration();
+            if ($primary_reg instanceof EE_Registration) {
+                $event_name = $primary_reg->event_name();
+            }
+        };
         wp_localize_script(
             'ee_paypal_smart_buttons',
             'eePpSmartButtonsData',
@@ -155,6 +164,16 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
                 'translations' => [
                     'no_SPCO_error' => esc_html__('It appears the Single Page Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
                     'no_paypal_js' => esc_html__('It appears the Paypal Express Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
+                    'orderDescription' => sprintf(
+                        // translators: 1: event name, 2: site name
+                        esc_html_x(
+                            'Event Registrations for %1$s from %2$s',
+                            'Event Registrations for Event Name from Site Name',
+                            "event_espresso"
+                        ),
+                        $event_name,
+                        wp_specialchars_decode(get_bloginfo(), ENT_QUOTES)
+                    ),
                 ]
             ]
         );

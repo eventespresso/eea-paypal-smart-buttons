@@ -56,6 +56,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 	this.hiddenInputPaymentIdSelector = instanceVars.hiddenInputPaymentIdSelector;
 	this.hiddenInputPaymentTokenSelector = instanceVars.hiddenInputPaymentTokenSelector;
 	this.hiddenInputOrderIdSelector = instanceVars.hiddenInputOrderIdSelector;
+	this.orderDescription = translations.orderDescription;
 
 	this.initialized = false;
 	this.translations = translations;
@@ -225,14 +226,14 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 				sandbox: this.clientId,
 				production: this.clientId,
 			},
-
 			payment: ( paymentData, actions ) => {
 				return actions.payment.create( {
 					payment: {
 						//documentation on what format transactions can take: https://developer.paypal.com/docs/api/payments/#definition-transaction
 						transactions: [
 							{
-								amount: { total: this.round( this.transactionTotal, 2 ), currency: this.currency },
+								amount: { total: this.transactionTotalRounded(), currency: this.currency },
+								description: this.orderDescription,
 							},
 						],
 					},
@@ -275,6 +276,14 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 	 */
 	this.round = function( value, decimals ) {
 		return Number( Math.round( value + 'e' + decimals ) + 'e-' + decimals );
+	};
+
+	/**
+	 * Returns the transaction total, rounded for PayPal.
+	 * @return {number} Transaction total rounded.
+	 */
+	this.transactionTotalRounded = function() {
+		return this.round( this.transactionTotal, 2 );
 	};
 }
 
