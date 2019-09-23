@@ -3,7 +3,7 @@
   Plugin Name: Event Espresso - PayPal Express Checkout with Smart Buttons (EE 4.9.64+)
   Plugin URI: http://www.eventespresso.com
   Description: The Event Espresso Paypal Express Checkout with Smart Buttons add-on adds a new off-site payment method with a payment pop-up, and dynamically adds buttons to pay with PayPal Credit, Credit Card, Venmo, etc based on the registrant's location.
-  Version: 1.0.5.rc.003
+  Version: 1.0.5.p
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
   Copyright 2014 Event Espresso (email : support@eventespresso.com)
@@ -36,7 +36,7 @@
  *
  * ------------------------------------------------------------------------
  */
-define('EE_PAYPAL_SMART_BUTTONS_VERSION', '1.0.5.rc.003');
+define('EE_PAYPAL_SMART_BUTTONS_VERSION', '1.0.5.p');
 define('EE_PAYPAL_SMART_BUTTONS_PLUGIN_FILE', __FILE__);
 function load_espresso_paypal_smart_buttons()
 {
