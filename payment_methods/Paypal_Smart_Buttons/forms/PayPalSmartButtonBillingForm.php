@@ -160,6 +160,9 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
                     'hiddenInputPaymentIdSelector' => '#ee-paypal-payment-id',
                     'hiddenInputPaymentTokenSelector' => '#ee-paypal-payment-token',
                     'hiddenInputOrderIdSelector' => '#ee-paypal-order-id',
+                    //phpcs:disable Generic.Files.LineLength.TooLong
+                    'shipping' => apply_filters('EventEspresso_PayPalSmartButtons_payment_methods_Paypal_Smart_Buttons_forms_PayPalSmartButtonBillingForm__enqueue_js__eePpSmartButtonsData__data__shipping', 'NO_SHIPPING', $this->transaction)
+                    //phpcs:enable
                 ],
                 'translations' => [
                     'no_SPCO_error' => esc_html__('It appears the Single Page Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
