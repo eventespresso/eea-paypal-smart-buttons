@@ -57,6 +57,7 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 	this.hiddenInputPaymentTokenSelector = instanceVars.hiddenInputPaymentTokenSelector;
 	this.hiddenInputOrderIdSelector = instanceVars.hiddenInputOrderIdSelector;
 	this.orderDescription = translations.orderDescription;
+	this.shipping = instanceVars.shipping;
 
 	this.initialized = false;
 	this.translations = translations;
@@ -236,10 +237,14 @@ function EegPayPalSmartButtons( instanceVars, translations ) {
 								description: this.orderDescription,
 							},
 						],
+						application_context: {
+							shipping_preference: this.shipping,
+						},
 					},
 					meta: {
 						partner_attribution_id: 'EventEspresso_SP',
 					},
+
 				} );
 			},
 
