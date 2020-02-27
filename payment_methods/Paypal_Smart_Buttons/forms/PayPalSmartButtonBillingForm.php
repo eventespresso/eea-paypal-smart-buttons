@@ -161,13 +161,13 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
                     'hiddenInputPaymentTokenSelector' => '#ee-paypal-payment-token',
                     'hiddenInputOrderIdSelector' => '#ee-paypal-order-id',
                     //phpcs:disable Generic.Files.LineLength.TooLong
-                    'shipping' => apply_filters('EventEspresso_PayPalSmartButtons_payment_methods_Paypal_Smart_Buttons_forms_PayPalSmartButtonBillingForm__enqueue_js__eePpSmartButtonsData__data__shipping', 'NO_SHIPPING', $this->transaction)
+                    'shipping' => apply_filters('FHEE__PayPalSmartButtonBillingForm__enqueue_js__eePpSmartButtonsData__data__shipping', 'NO_SHIPPING', $this->transaction)
                     //phpcs:enable
                 ],
                 'translations' => [
                     'no_SPCO_error' => esc_html__('It appears the Single Page Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
                     'no_paypal_js' => esc_html__('It appears the Paypal Express Checkout javascript was not loaded properly! Please refresh the page and try again or contact support.', 'event_espresso'),
-                    'orderDescription' => sprintf(
+                    'orderDescription' => apply_filters('FHEE__PayPalSmartButtonBillingForm__enqueue_js__eePpSmartButtonsData__translations__orderDescription', sprintf(
                         // translators: 1: event name, 2: site name
                         esc_html_x(
                             'Event Registrations for %1$s from %2$s',
@@ -176,7 +176,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
                         ),
                         $event_name,
                         wp_specialchars_decode(get_bloginfo(), ENT_QUOTES)
-                    ),
+                    ), $event_name, $this->transaction, $this->_pm_instance, $this->registry)
                 ]
             ]
         );
