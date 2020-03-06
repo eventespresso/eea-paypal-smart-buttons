@@ -149,7 +149,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
                     'currency' => EE_Config::instance()->currency->code,
                     // Round the amount to PayPal's expected 2 decimal places. Strangely enough, even if the currency
                     // accepts NO decimal places, this is the format they want. So give it to them.
-                    'transaction_total' => number_format($this->transaction->remaining(), 2),
+                    'transaction_total' => number_format($this->transaction->remaining(), 2, '.', ''),
                     'payment_div_selector' => '#ee-paypal-button-container',
                     'sandbox_mode' => $this->_pm_instance->debug_mode(),
                     'client_id' => $this->_pm_instance->get_extra_meta('client_id', true),
