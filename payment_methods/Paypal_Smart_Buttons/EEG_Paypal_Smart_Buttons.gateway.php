@@ -153,11 +153,14 @@ class EEG_Paypal_Smart_Buttons extends EE_Onsite_Gateway
         // @todo setup the items
         try {
             $payment_id = isset($billing_info['payment_id']) ? $billing_info['payment_id'] : '';
-            $payment->set_txn_id_chq_nmbr($payment_id);
             $response_data = $this->getClient()->executePayment(
                 isset($billing_info['payer_id']) ? $billing_info['payer_id'] : '',
                 $payment_id
             );
+            $txn_sale_id = isset($response_data['transactions'][0]['related_resources'][0]['sale']['id']) 
+                ? $response_data['transactions'][0]['related_resources'][0]['sale']['id']
+                : '';
+            $payment->set_txn_id_chq_nmbr($txn_sale_id);
             $this->log(
                 array(
                     'response_data' => $response_data,
