@@ -157,7 +157,7 @@ class EEG_Paypal_Smart_Buttons extends EE_Onsite_Gateway
                 isset($billing_info['payer_id']) ? $billing_info['payer_id'] : '',
                 $payment_id
             );
-            $txn_sale_id = isset($response_data['transactions'][0]['related_resources'][0]['sale']['id']) 
+            $txn_sale_id = isset($response_data['transactions'][0]['related_resources'][0]['sale']['id'])
                 ? $response_data['transactions'][0]['related_resources'][0]['sale']['id']
                 : '';
             $payment->set_txn_id_chq_nmbr($txn_sale_id);
