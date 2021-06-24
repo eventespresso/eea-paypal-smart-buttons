@@ -20,14 +20,11 @@ define('EE_PAYPAL_SMART_BUTTONS_URL', plugin_dir_url(__FILE__));
 class EE_Paypal_Smart_Buttons extends EE_Addon
 {
 
-    /**
-     * class constructor
-     */
-    public function __construct()
-    {
-    }
-
-    public static function register_addon()
+	/**
+	 * @throws EE_Error
+	 * @throws ReflectionException
+	 */
+	public static function register_addon()
     {
         // register addon via Plugin API
         EE_Register_Addon::register(
