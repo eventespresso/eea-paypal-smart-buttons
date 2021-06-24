@@ -151,6 +151,7 @@ class EEG_Paypal_Smart_Buttons extends EE_Onsite_Gateway
             );
         }
         // @todo setup the items
+	    $response_data = [];
         try {
             $payment_id = isset($billing_info['payment_id']) ? $billing_info['payment_id'] : '';
             $response_data = $this->getClient()->executePayment(
