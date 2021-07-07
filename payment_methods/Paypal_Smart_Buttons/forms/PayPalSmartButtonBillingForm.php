@@ -98,7 +98,7 @@ class PayPalSmartButtonBillingForm extends EE_Billing_Info_Form
 	/**
 	 * @return string
 	 * @throws DomainException
-	 * @since   $VID:$
+	 * @since   1.0.8.p
 	 */
 	private function getProductionJsAssetsUrl()
 	{

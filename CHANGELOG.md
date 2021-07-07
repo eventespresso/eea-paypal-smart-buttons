@@ -15,6 +15,8 @@ Headings should be (only add headings as needed):
 
 ## [$VID:$]
 
+## [1.0.8.p]
+
 ## [1.0.7.p]
 
 ## [1.0.6.p]
