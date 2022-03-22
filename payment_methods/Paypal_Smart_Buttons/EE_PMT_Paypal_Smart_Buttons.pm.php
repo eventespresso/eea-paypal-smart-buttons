@@ -1,5 +1,7 @@
 <?php
 
+use EventEspresso\core\exceptions\InvalidDataTypeException;
+use EventEspresso\core\exceptions\InvalidInterfaceException;
 use EventEspresso\core\services\loaders\LoaderFactory;
 use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonBillingForm;
 use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\PayPalSmartButtonSettingsForm;
@@ -7,18 +9,17 @@ use EventEspresso\PayPalSmartButtons\payment_methods\Paypal_Smart_Buttons\forms\
 /**
  * EE_PMT_Paypal_Smart_Buttons
  *
- * @package         Event Espresso
+ * @package     Event Espresso
  * @subpackage
- * @author              Mike Nelson
- *
- * ------------------------------------------------------------------------
+ * @author      Mike Nelson
  */
 class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
 {
 
     /**
-     * @param EE_Payment_Method $pm_instance
-     * @return EE_PMT_Paypal_Smart_Buttons
+     * @param null $pm_instance
+     * @throws EE_Error
+     * @throws ReflectionException
      */
     public function __construct($pm_instance = null)
     {
@@ -48,17 +49,16 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
      */
     public function generate_new_settings_form()
     {
-        $form =  new PayPalSmartButtonSettingsForm(
+        return new PayPalSmartButtonSettingsForm(
             $this->get_help_tab_link()
         );
-        return $form;
     }
 
 
     /**
      * Creates the billing form for this payment method type
      *
-     * @param EE_Transaction $transaction
+     * @param EE_Transaction|null $transaction
      * @return PayPalSmartButtonBillingForm
      */
     public function generate_new_billing_form(EE_Transaction $transaction = null)
@@ -90,28 +90,28 @@ class EE_PMT_Paypal_Smart_Buttons extends EE_PMT_Base
 
 
     /**
-     * @param EE_Transaction $transaction
-     * @param null           $amount
-     * @param null           $billing_info
-     * @param null           $return_url
-     * @param string         $fail_url
-     * @param string         $method
-     * @param bool           $by_admin
+     * @param EE_Transaction            $transaction
+     * @param float|null                $amount
+     * @param EE_Billing_Info_Form|null $billing_info
+     * @param string|null               $return_url
+     * @param string                    $fail_url
+     * @param string                    $method
+     * @param bool                      $by_admin
      * @return EE_Payment
      * @throws EE_Error
      * @throws InvalidArgumentException
      * @throws ReflectionException
-     * @throws \EventEspresso\core\exceptions\InvalidDataTypeException
-     * @throws \EventEspresso\core\exceptions\InvalidInterfaceException
+     * @throws InvalidDataTypeException
+     * @throws InvalidInterfaceException
      */
     public function process_payment(
         EE_Transaction $transaction,
-        $amount = null,
-        $billing_info = null,
-        $return_url = null,
-        $fail_url = '',
-        $method = 'CART',
-        $by_admin = false
+        float $amount = null,
+        ?EE_Billing_Info_Form $billing_info = null,
+        string $return_url = null,
+        string $fail_url = '',
+        string $method = 'CART',
+        bool $by_admin = false
     ) {
         $result = parent::process_payment(
             $transaction,
