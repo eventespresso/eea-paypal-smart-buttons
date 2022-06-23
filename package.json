@@ -47,7 +47,7 @@
     "babel-loader": "8.0.0",
     "babel-plugin-dev-expression": "^0.2.1",
     "clean-webpack-plugin": "^0.1.18",
-    "codecov": "^3.1.0",
+    "codecov": "^3.8.3",
     "concurrently": "^3.6.1",
     "cross-env": "3.2.4",
     "eslint-config-wordpress": "2.0.0",
